@@ -1,0 +1,15 @@
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\bin\Debug\net9.0\MundoBloques.exe
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\bin\Debug\net9.0\MundoBloques.deps.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\bin\Debug\net9.0\MundoBloques.runtimeconfig.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\bin\Debug\net9.0\MundoBloques.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\bin\Debug\net9.0\MundoBloques.pdb
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.AssemblyInfoInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.AssemblyInfo.cs
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.csproj.CoreCompileInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.sourcelink.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\refint\MundoBloques.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.pdb
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\MundoBloques.genruntimeconfig.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\MundoBloques\obj\Debug\net9.0\ref\MundoBloques.dll
