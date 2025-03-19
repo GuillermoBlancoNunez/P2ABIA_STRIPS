@@ -24,7 +24,7 @@ public class MainForm : Form
     public MainForm()
     {
         this.Text = "Mundo de Bloques STRIPS";
-        this.Size = new Size(1000, 700);
+        this.Size = new Size(1000, 800);
         this.BackColor = Color.WhiteSmoke;
 
         // Título

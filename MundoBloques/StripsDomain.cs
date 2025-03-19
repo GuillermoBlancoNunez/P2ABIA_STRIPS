@@ -4,6 +4,7 @@ using System.Linq;
 
 public static class StripsDomain
 {
+    
     public static List<StripsAction> GetAllActions()
     {
         List<StripsAction> actions = new List<StripsAction>();
