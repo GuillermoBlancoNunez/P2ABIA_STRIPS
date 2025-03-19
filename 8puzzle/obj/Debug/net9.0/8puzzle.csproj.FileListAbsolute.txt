@@ -1,0 +1,5 @@
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0\8puzzle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0\8puzzle.AssemblyInfoInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0\8puzzle.AssemblyInfo.cs
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0\8puzzle.csproj.CoreCompileInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0\8puzzle.sourcelink.json

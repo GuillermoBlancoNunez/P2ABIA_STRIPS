@@ -1,0 +1,15 @@
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.AssemblyInfoInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.AssemblyInfo.cs
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.csproj.CoreCompileInputs.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.sourcelink.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\bin\Debug\net9.0-windows\8puzzle.exe
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\bin\Debug\net9.0-windows\8puzzle.deps.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\bin\Debug\net9.0-windows\8puzzle.runtimeconfig.json
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\bin\Debug\net9.0-windows\8puzzle.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\bin\Debug\net9.0-windows\8puzzle.pdb
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\refint\8puzzle.dll
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.pdb
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\8puzzle.genruntimeconfig.cache
+C:\Users\blanc\OneDrive\Escritorio\School\IA_2_2024-2025\Cuatrimestre_4\ABIA\Prácticas\P2ABIA_STRIPS\8puzzle\obj\Debug\net9.0-windows\ref\8puzzle.dll
