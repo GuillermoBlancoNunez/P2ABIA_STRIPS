@@ -1,4 +1,10 @@
-// Formulario principal con la interfaz mejorada.
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+
 public class MainForm : Form
 {
     private Panel drawingPanel;
@@ -10,22 +16,20 @@ public class MainForm : Form
     private Label titleLabel;
     private Label statusLabel;
     private Agent agent;
-    private List<MoveAction> actionsToExecute;
+    private List<StripsAction> actionsToExecute;
     private int currentActionIndex = 0;
-
-    // Para permitir retroceder se guarda el historial de estados.
-    private WorldState initialWorldState;
-    private List<WorldState> stateHistory;
+    private HashSet<Predicate> initialWorldState;
+    private List<HashSet<Predicate>> stateHistory;
 
     public MainForm()
     {
-        this.Text = "Mundo de Bloques - Agente STRIPS";
+        this.Text = "Mundo de Bloques STRIPS";
         this.Size = new Size(1000, 700);
         this.BackColor = Color.WhiteSmoke;
 
-        // Título de la aplicación.
+        // Título
         this.titleLabel = new Label();
-        this.titleLabel.Text = "MUNDO DE BLOQUES - AGENTE STRIPS";
+        this.titleLabel.Text = "MUNDO DE BLOQUES - STRIPS";
         this.titleLabel.Font = new Font("Segoe UI", 20, FontStyle.Bold);
         this.titleLabel.ForeColor = Color.DarkBlue;
         this.titleLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -33,7 +37,7 @@ public class MainForm : Form
         this.titleLabel.Height = 60;
         this.Controls.Add(this.titleLabel);
 
-        // GroupBox para mostrar el plan de acciones.
+        // GroupBox para el plan
         GroupBox planGroupBox = new GroupBox();
         planGroupBox.Text = "Plan de Acciones";
         planGroupBox.Font = new Font("Segoe UI", 10, FontStyle.Regular);
@@ -48,7 +52,7 @@ public class MainForm : Form
         this.planListBox.Size = new Size(280, 200);
         planGroupBox.Controls.Add(this.planListBox);
 
-        // Botón para iniciar la ejecución.
+        // Botones de control
         this.startButton = new Button();
         this.startButton.Text = "Iniciar Ejecución";
         this.startButton.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -58,7 +62,6 @@ public class MainForm : Form
         this.startButton.Click += new EventHandler(this.StartButton_Click);
         this.Controls.Add(this.startButton);
 
-        // Botón para la siguiente acción.
         this.nextActionButton = new Button();
         this.nextActionButton.Text = "Siguiente Acción";
         this.nextActionButton.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -69,7 +72,7 @@ public class MainForm : Form
         this.nextActionButton.Click += new EventHandler(this.NextActionButton_Click);
         this.Controls.Add(this.nextActionButton);
 
-        // Botón para reiniciar (colocado debajo del botón Iniciar Ejecución).
+        // Botones colocados debajo
         this.resetButton = new Button();
         this.resetButton.Text = "Reiniciar";
         this.resetButton.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -79,7 +82,6 @@ public class MainForm : Form
         this.resetButton.Click += new EventHandler(this.ResetButton_Click);
         this.Controls.Add(this.resetButton);
 
-        // Botón para la acción anterior (colocado debajo del botón Siguiente Acción).
         this.previousActionButton = new Button();
         this.previousActionButton.Text = "Acción Anterior";
         this.previousActionButton.Font = new Font("Segoe UI", 10, FontStyle.Bold);
@@ -90,15 +92,15 @@ public class MainForm : Form
         this.previousActionButton.Click += new EventHandler(this.PreviousActionButton_Click);
         this.Controls.Add(this.previousActionButton);
 
-        // Label de estado, ubicado en la parte inferior.
+        // Label de estado en la parte inferior
         this.statusLabel = new Label();
         this.statusLabel.Text = "Estado: Esperando inicio...";
         this.statusLabel.Font = new Font("Segoe UI", 10, FontStyle.Italic);
         this.statusLabel.AutoSize = true;
-        this.statusLabel.Location = new Point(20, 450);
+        this.statusLabel.Location = new Point(20, 650);
         this.Controls.Add(this.statusLabel);
 
-        // Panel para la representación gráfica.
+        // Panel de dibujo
         this.drawingPanel = new Panel();
         this.drawingPanel.Location = new Point(350, 80);
         this.drawingPanel.Size = new Size(600, 550);
@@ -107,19 +109,18 @@ public class MainForm : Form
         this.drawingPanel.Paint += new PaintEventHandler(this.DrawingPanel_Paint);
         this.Controls.Add(this.drawingPanel);
 
-        WorldState initialState = Scenario.GetInitialState();
-        WorldState goalState = Scenario.GetGoalState();
-
+        // Inicialización del agente
+        HashSet<Predicate> initialState = Scenario.GetInitialState();
+        HashSet<Predicate> goalState = Scenario.GetGoalState();
         this.agent = new Agent(initialState, goalState);
-        // Guardamos el estado inicial y preparamos el historial.
-        this.initialWorldState = initialState.Clone();
-        this.stateHistory = new List<WorldState>();
-        this.stateHistory.Add(this.initialWorldState);
 
-        // Mostrar el plan completo.
+        this.initialWorldState = new HashSet<Predicate>(initialState);
+        this.stateHistory = new List<HashSet<Predicate>>();
+        this.stateHistory.Add(new HashSet<Predicate>(initialState));
+
         if (this.agent.Plan != null)
         {
-            foreach (MoveAction act in this.agent.Plan)
+            foreach (var act in this.agent.Plan)
             {
                 this.planListBox.Items.Add(act.ToString());
             }
@@ -128,186 +129,228 @@ public class MainForm : Form
         {
             this.planListBox.Items.Add("No se encontró un plan.");
         }
-    }
-
-    private void StartButton_Click(object sender, EventArgs e)
-    {
-        if (this.agent.Plan == null)
-        {
-            MessageBox.Show("No se encontró un plan para el escenario.");
-            return;
         }
-        this.actionsToExecute = new List<MoveAction>(this.agent.Plan);
-        this.currentActionIndex = 0;
-        this.startButton.Enabled = false;
-        this.nextActionButton.Enabled = true;
-        this.previousActionButton.Enabled = false;
-        this.statusLabel.Text = "Estado: Ejecución iniciada.";
-    }
 
-    private void NextActionButton_Click(object sender, EventArgs e)
-    {
-        if (this.currentActionIndex < this.actionsToExecute.Count)
+        private void StartButton_Click(object sender, EventArgs e)
         {
-            MoveAction action = this.actionsToExecute[this.currentActionIndex];
-            try
+            if (this.agent.Plan == null)
             {
-                this.agent.CurrentState = action.Apply(this.agent.CurrentState);
-                this.currentActionIndex = this.currentActionIndex + 1;
-                // Guardar el nuevo estado en el historial.
-                this.stateHistory.Add(this.agent.CurrentState.Clone());
-                // Resaltar la acción ejecutada.
-                this.planListBox.SelectedIndex = this.currentActionIndex - 1;
-                this.previousActionButton.Enabled = (this.currentActionIndex > 0);
-                this.statusLabel.Text = "Estado: Ejecutada acción: " + action.ToString();
+                MessageBox.Show("No se encontró un plan para el escenario.");
+                return;
             }
-            catch (Exception ex)
+            this.actionsToExecute = new List<StripsAction>(this.agent.Plan);
+            this.currentActionIndex = 0;
+            this.startButton.Enabled = false;
+            this.nextActionButton.Enabled = true;
+            this.previousActionButton.Enabled = false;
+            this.statusLabel.Text = "Estado: Ejecución iniciada.";
+        }
+
+        private void NextActionButton_Click(object sender, EventArgs e)
+        {
+            if (this.currentActionIndex < this.actionsToExecute.Count)
             {
-                MessageBox.Show("Error durante la ejecución del plan: " + ex.Message);
-            }
-            // Actualizar la representación gráfica inmediatamente.
-            this.drawingPanel.Invalidate();
-            this.drawingPanel.Refresh();
-            
-            if (this.currentActionIndex >= this.actionsToExecute.Count)
-            {
-                // Una vez actualizado el panel, mostrar el mensaje pop-up.
-                MessageBox.Show("Plan completado.");
-                this.nextActionButton.Enabled = false;
-                this.statusLabel.Text = "Estado: Plan completado.";
+                StripsAction action = this.actionsToExecute[this.currentActionIndex];
+                try
+                {
+                    this.agent.CurrentState = action.Apply(this.agent.CurrentState);
+                    this.currentActionIndex++;
+                    this.stateHistory.Add(new HashSet<Predicate>(this.agent.CurrentState));
+                    this.planListBox.SelectedIndex = this.currentActionIndex - 1;
+                    this.previousActionButton.Enabled = (this.currentActionIndex > 0);
+                    this.statusLabel.Text = "Estado: Ejecutada acción: " + action.Name;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error durante la ejecución: " + ex.Message);
+                }
+                this.drawingPanel.Invalidate();
+                this.drawingPanel.Refresh();
+                if (this.currentActionIndex >= this.actionsToExecute.Count)
+                {
+                    MessageBox.Show("Plan completado.");
+                    this.nextActionButton.Enabled = false;
+                    this.statusLabel.Text = "Estado: Plan completado.";
+                }
             }
         }
-    }
 
-
-    private void PreviousActionButton_Click(object sender, EventArgs e)
-    {
-        if (this.currentActionIndex > 0)
+        private void PreviousActionButton_Click(object sender, EventArgs e)
         {
-            this.currentActionIndex = this.currentActionIndex - 1;
-            this.agent.CurrentState = this.stateHistory[this.currentActionIndex].Clone();
             if (this.currentActionIndex > 0)
             {
-                this.planListBox.SelectedIndex = this.currentActionIndex - 1;
+                this.currentActionIndex--;
+                this.agent.CurrentState = new HashSet<Predicate>(this.stateHistory[this.currentActionIndex]);
+                if (this.currentActionIndex > 0)
+                    this.planListBox.SelectedIndex = this.currentActionIndex - 1;
+                else
+                    this.planListBox.ClearSelected();
+                this.nextActionButton.Enabled = true;
+                this.statusLabel.Text = "Estado: Retrocedida acción. Índice: " + this.currentActionIndex;
+                this.stateHistory.RemoveAt(this.stateHistory.Count - 1);
+                this.drawingPanel.Invalidate();
+                this.drawingPanel.Refresh();
+                if (this.currentActionIndex == 0)
+                    this.previousActionButton.Enabled = false;
             }
-            else
-            {
-                this.planListBox.ClearSelected();
-            }
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            this.agent.CurrentState = new HashSet<Predicate>(this.initialWorldState);
+            this.currentActionIndex = 0;
+            this.stateHistory.Clear();
+            this.stateHistory.Add(new HashSet<Predicate>(this.initialWorldState));
+            this.planListBox.ClearSelected();
             this.nextActionButton.Enabled = true;
-            this.statusLabel.Text = "Estado: Retrocedida acción. Índice: " + this.currentActionIndex;
-            this.stateHistory.RemoveAt(this.stateHistory.Count - 1);
+            this.previousActionButton.Enabled = false;
+            this.startButton.Enabled = true;
+            this.statusLabel.Text = "Estado: Reiniciado al estado inicial.";
             this.drawingPanel.Invalidate();
-            if (this.currentActionIndex == 0)
-            {
-                this.previousActionButton.Enabled = false;
-            }
-        }
-    }
-
-    private void ResetButton_Click(object sender, EventArgs e)
-    {
-        this.agent.CurrentState = this.initialWorldState.Clone();
-        this.currentActionIndex = 0;
-        this.stateHistory.Clear();
-        this.stateHistory.Add(this.initialWorldState.Clone());
-        this.planListBox.ClearSelected();
-        this.nextActionButton.Enabled = true;
-        this.previousActionButton.Enabled = false;
-        this.startButton.Enabled = true;
-        this.statusLabel.Text = "Estado: Reiniciado al estado inicial.";
-        this.drawingPanel.Invalidate();
-    }
-
-    // Dibuja gráficamente el estado actual, ubicando las pilas según las posiciones fijas T1, T2 y T3.
-    private void DrawingPanel_Paint(object sender, PaintEventArgs e)
-    {
-        Graphics g = e.Graphics;
-        g.Clear(Color.White);
-
-        // Definir las posiciones fijas de la mesa.
-        List<string> tablePositions = new List<string>() { "T1", "T2", "T3" };
-        Dictionary<string, List<string>> stacks = new Dictionary<string, List<string>>();
-        foreach (string tp in tablePositions)
-        {
-            stacks[tp] = new List<string>();
+            this.drawingPanel.Refresh();
         }
 
-        // Construir las pilas: buscar el bloque cuya posición de soporte es una de las posiciones de la mesa.
-        foreach (string block in this.agent.CurrentState.Positions.Keys)
+        private List<List<string>> GetStacks(HashSet<Predicate> state)
         {
-            string support = this.agent.CurrentState.Positions[block];
-            if (MoveAction.IsTablePosition(support))
+            List<List<string>> stacks = new List<List<string>>();
+            var onMesa = state.Where(p => p.Name == "Encima" && p.Arguments[1] == "Mesa")
+                            .Select(p => p.Arguments[0]).ToList();
+            HashSet<string> visited = new HashSet<string>();
+            foreach (string baseBlock in onMesa)
             {
-                if (stacks[support].Count == 0)
+                if (!visited.Contains(baseBlock))
                 {
-                    stacks[support].Add(block);
-                    string current = block;
+                    List<string> stack = new List<string>();
+                    stack.Add(baseBlock);
+                    visited.Add(baseBlock);
+                    string current = baseBlock;
                     bool found = true;
                     while (found)
                     {
                         found = false;
-                        foreach (string b in this.agent.CurrentState.Positions.Keys)
+                        var next = state.Where(p => p.Name == "Encima" && p.Arguments[1] == current)
+                                        .Select(p => p.Arguments[0]).FirstOrDefault();
+                        if (next != null && !visited.Contains(next))
                         {
-                            if (!stacks[support].Contains(b) && this.agent.CurrentState.Positions[b] == current)
+                            stack.Add(next);
+                            visited.Add(next);
+                            current = next;
+                            found = true;
+                        }
+                    }
+                    stacks.Add(stack);
+                }
+            }
+            return stacks;
+        }
+
+        
+
+        private void DrawingPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.Clear(Color.White);
+
+            // T1, T2, T3 fijos
+            string[] tablePositions = { "T1", "T2", "T3" };
+            // Calculamos qué bloque está directamente encima de cada Tn
+            // y seguimos la cadena "Encima(x,y)".
+
+            Dictionary<string, List<string>> stacks = new Dictionary<string, List<string>>();
+            foreach (string tp in tablePositions)
+            {
+                stacks[tp] = new List<string>();
+            }
+
+            // Buscar qué bloque base está sobre T1, T2, T3
+            foreach (Predicate p in this.agent.CurrentState)
+            {
+                if (p.Name == "Encima")
+                {
+                    string b = p.Arguments[0];
+                    string under = p.Arguments[1];
+                    if (under == "T1" || under == "T2" || under == "T3")
+                    {
+                        // b es la base de la pila en T1, T2 o T3
+                        if (!stacks[under].Contains(b))
+                            stacks[under].Add(b);
+
+                        // Ahora construimos la pila ascendente
+                        string current = b;
+                        bool found = true;
+                        while (found)
+                        {
+                            found = false;
+                            // Buscar un predicado Encima(x, current)
+                            foreach (Predicate p2 in this.agent.CurrentState)
                             {
-                                stacks[support].Add(b);
-                                current = b;
-                                found = true;
-                                break;
+                                if (p2.Name == "Encima" && p2.Arguments[1] == current)
+                                {
+                                    string top = p2.Arguments[0];
+                                    stacks[under].Add(top);
+                                    current = top;
+                                    found = true;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
-        // Coordenadas fijas para cada posición.
-        int panelWidth = this.drawingPanel.Width;
-        int margin = 40;
-        int blockWidth = 60;
-        int blockHeight = 30;
-        int t1_x = margin;
-        int t3_x = panelWidth - blockWidth - margin;
-        int t2_x = (t1_x + t3_x) / 2;
-        Dictionary<string, int> tableX = new Dictionary<string, int>()
-        {
-            { "T1", t1_x },
-            { "T2", t2_x },
-            { "T3", t3_x }
-        };
+            // Coordenadas para T1, T2, T3
+            int panelWidth = this.drawingPanel.Width;
+            int blockWidth = 60;
+            int blockHeight = 30;
+            int margin = 20;
+            int startY = this.drawingPanel.Height - 50;
 
-        int startY = this.drawingPanel.Height - 70;
+            // T1 a la izquierda
+            int t1_x = margin;
+            // T3 a la derecha
+            int t3_x = panelWidth - blockWidth - margin;
+            // T2 al centro
+            int t2_x = (t1_x + t3_x) / 2;
 
-        // Dibujar cada pila en su posición.
-        foreach (string tp in tablePositions)
-        {
-            int x = tableX[tp];
-            int y = startY;
-            List<string> stack = stacks[tp];
-            if (stack.Count > 0)
+            Dictionary<string, int> tableX = new Dictionary<string, int>()
             {
-                foreach (string block in stack)
+                { "T1", t1_x },
+                { "T2", t2_x },
+                { "T3", t3_x }
+            };
+
+            // Dibujar cada posición
+            foreach (string tp in tablePositions)
+            {
+                int x = tableX[tp];
+                int y = startY;
+                List<string> stack = stacks[tp];
+                if (stack.Count == 0)
                 {
+                    // Posición vacía: dibujar un rectángulo con la etiqueta T1, T2 o T3
                     Rectangle rect = new Rectangle(x, y - blockHeight, blockWidth, blockHeight);
-                    g.FillRectangle(Brushes.LightCoral, rect);
-                    g.DrawRectangle(Pens.DarkRed, rect);
+                    g.DrawRectangle(Pens.Gray, rect);
                     StringFormat sf = new StringFormat();
                     sf.Alignment = StringAlignment.Center;
                     sf.LineAlignment = StringAlignment.Center;
-                    g.DrawString(block, new Font("Segoe UI", 10), Brushes.Black, rect, sf);
-                    y -= blockHeight;
+                    g.DrawString(tp, this.Font, Brushes.Gray, rect, sf);
+                }
+                else
+                {
+                    // Dibujar la pila
+                    foreach (string block in stack)
+                    {
+                        Rectangle rect = new Rectangle(x, y - blockHeight, blockWidth, blockHeight);
+                        g.FillRectangle(Brushes.LightCoral, rect);
+                        g.DrawRectangle(Pens.DarkRed, rect);
+
+                        StringFormat sf = new StringFormat();
+                        sf.Alignment = StringAlignment.Center;
+                        sf.LineAlignment = StringAlignment.Center;
+                        g.DrawString(block, this.Font, Brushes.Black, rect, sf);
+                        y -= blockHeight;
+                    }
                 }
             }
-            else
-            {
-                Rectangle rect = new Rectangle(x, y - blockHeight, blockWidth, blockHeight);
-                g.DrawRectangle(Pens.Gray, rect);
-                StringFormat sf = new StringFormat();
-                sf.Alignment = StringAlignment.Center;
-                sf.LineAlignment = StringAlignment.Center;
-                g.DrawString(tp, new Font("Segoe UI", 10, FontStyle.Italic), Brushes.Gray, rect, sf);
-            }
         }
-    }
 }

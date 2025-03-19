@@ -1,22 +1,25 @@
-// Agente que integra el planificador y ejecuta el plan para un escenario dado.
+using System;
+using System.Collections.Generic;
+
+
 public class Agent
 {
-    public WorldState CurrentState { get; set; }
-    public WorldState GoalState { get; set; }
-    public List<MoveAction> Plan { get; set; }
-    public Planner Planner { get; set; }
+    public HashSet<Predicate> CurrentState { get; set; }
+    public HashSet<Predicate> GoalState { get; set; }
+    public List<StripsAction> Plan { get; set; }
+    public StripsPlanner Planner { get; set; }
 
-    public Agent(WorldState initial, WorldState goal)
+    public Agent(HashSet<Predicate> initial, HashSet<Predicate> goal)
     {
-        this.CurrentState = initial;
-        this.GoalState = goal;
-        this.Planner = new Planner();
+        this.CurrentState = new HashSet<Predicate>(initial);
+        this.GoalState = new HashSet<Predicate>(goal);
+        this.Planner = new StripsPlanner();
         this.Plan = this.Planner.GetPlan(initial, goal);
     }
 
-    public IEnumerable<MoveAction> ExecutePlan()
+    public IEnumerable<StripsAction> ExecutePlan()
     {
-        foreach (MoveAction action in this.Plan)
+        foreach (var action in this.Plan)
         {
             if (action.IsApplicable(this.CurrentState))
             {
@@ -25,7 +28,7 @@ public class Agent
             }
             else
             {
-                throw new Exception("Fallo en la ejecución del plan: acción no aplicable.");
+                throw new Exception("Acción no aplicable durante la ejecución: " + action.Name);
             }
         }
     }
