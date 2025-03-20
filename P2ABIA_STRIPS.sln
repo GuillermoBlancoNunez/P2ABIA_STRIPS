@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8puzzle", "8puzzle\8puzzle.csproj", "{E5BE1D86-8BC1-D446-92A9-0947287BB4E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MundoBloques", "MundoBloques\MundoBloques.csproj", "{90AF6998-0DBE-050E-1873-77001A555BDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5BE1D86-8BC1-D446-92A9-0947287BB4E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5BE1D86-8BC1-D446-92A9-0947287BB4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5BE1D86-8BC1-D446-92A9-0947287BB4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5BE1D86-8BC1-D446-92A9-0947287BB4E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90AF6998-0DBE-050E-1873-77001A555BDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90AF6998-0DBE-050E-1873-77001A555BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90AF6998-0DBE-050E-1873-77001A555BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90AF6998-0DBE-050E-1873-77001A555BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59089A7D-5456-44D5-88FD-F42E769C7C3F}
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 
 public static class Scenario
@@ -6,7 +5,7 @@ public static class Scenario
     public static HashSet<Predicate> GetInitialState()
     {
         HashSet<Predicate> state = new HashSet<Predicate>();
-        // A en T1, B en T2, C en T3
+        // Bloques encima
         state.Add(new Predicate("Encima", "A", "T1"));
         state.Add(new Predicate("Encima", "B", "A"));
         state.Add(new Predicate("Encima", "C", "B"));
@@ -17,15 +16,13 @@ public static class Scenario
         state.Add(new Predicate("Libre", "C"));
         state.Add(new Predicate("Libre", "F"));
         state.Add(new Predicate("Libre", "D"));
-        // Posiciones T1, T2, T3 no están libres si tienen un bloque encima,
-        // así que NO añadimos "Libre(T1)" si A está en T1, etc.
         return state;
     }
 
     public static HashSet<Predicate> GetGoalState()
     {
         HashSet<Predicate> goal = new HashSet<Predicate>();
-        // Por ejemplo: B sobre A, A sobre C, C en T3
+
         goal.Add(new Predicate("Encima", "A", "T3"));
         goal.Add(new Predicate("Encima", "B", "T2"));
         goal.Add(new Predicate("Encima", "C", "T1"));

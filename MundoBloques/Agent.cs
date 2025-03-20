@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-
 public class Agent
 {
     public HashSet<Predicate> CurrentState { get; set; }

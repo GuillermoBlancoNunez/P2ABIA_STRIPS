@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-
 public class StripsAction
 {
     public string Name { get; set; }
