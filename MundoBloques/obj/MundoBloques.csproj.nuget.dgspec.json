@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj": {}
+    "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj": {
+    "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
+        "projectUniqueName": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
         "projectName": "MundoBloques",
-        "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
-        "packagesPath": "C:\\Users\\blanc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P2ABIA_STRIPS\\MundoBloques\\obj\\",
+        "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
+        "packagesPath": "C:\\Users\\fizga\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\blanc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fizga\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
         ],
         "originalTargetFrameworks": [
