@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MundoBloques")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+52d2bd49fb8435be0554833114175029526c92c9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a415c995162d9103a83a011c64dcafce3b708f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("MundoBloques")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MundoBloques")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
