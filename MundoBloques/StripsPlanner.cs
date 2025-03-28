@@ -1,86 +1,58 @@
-
+/// <summary>
+/// Implements the STRIPS planner using an A* search algorithm.
+/// </summary>
 public class StripsPlanner
 {
-    
+    /// <summary>
+    /// Calculates the cost of the current plan as the number of actions.
+    /// </summary>
+    /// <param name="currentPlan">The list of actions taken so far.</param>
+    /// <returns>The cost value.</returns>
     private int CostCalculation(List<StripsAction> currentPlan)
     {
         return currentPlan.Count;
     }
 
-    // Calcula la heurística a partir del estado actual y el estado objetivo.
+    /// <summary>
+    /// Computes the heuristic value by counting how many predicates in the goal state are missing in the current state.
+    /// </summary>
+    /// <param name="State">The current state represented as a set of predicates.</param>
+    /// <param name="goalState">The goal state represented as a set of predicates.</param>
+    /// <returns>The heuristic value.</returns>
     private int HeuristicCalculation(HashSet<Predicate> State, HashSet<Predicate> goalState)
     {
-        int pen = 0;
-
-        // Recorremos cada predicado del objetivo
-        foreach (var goalPredicate in goalState)
+        int penalization = 0;
+        foreach (var predicate in goalState)
         {
-            if (goalPredicate.Name == "Libre")
-                if (!State.Contains(goalPredicate))
-                    pen += CountBlocksAbove(goalPredicate.Arguments[0], State);
-
-            if (goalPredicate.Name == "Encima")
-                if (FindSupport(goalPredicate.Arguments[0],goalState) == FindSupport(goalPredicate.Arguments[0], State))
-                    pen++;                    
+            if (!State.Contains(predicate))
+                penalization++;
         }
-
-        return pen;
+        return penalization;
     }
 
-    private int CountBlocksAbove(string block, HashSet<Predicate> state)
-    {
-        // Buscamos el predicado que indique que algún bloque está encima del bloque actual.
-        // Es decir, buscamos "Encima(X, block)".
-        var predicate = state.FirstOrDefault(p => p.Name == "Encima" && p.Arguments[1] == block);
-
-        // Si no encontramos ningún predicado, no hay bloque encima.
-        if (predicate == null)
-        {
-            return 0;
-        }
-        else
-        {
-            // Si encontramos el predicado, obtenemos el bloque que está encima.
-            string blockAbove = predicate.Arguments[0];
-
-            // Se cuenta 1 (por el bloque que encontramos) y se llama recursivamente para contar
-            // los bloques que están encima del bloque encontrado.
-            return 1 + CountBlocksAbove(blockAbove, state);
-        }
-    }
-
-
-    private string FindSupport(string block, HashSet<Predicate> state)
-    {
-        // Buscamos el predicado que indica "Encima(block, support)"
-        var predicate = state.FirstOrDefault(p => p.Name == "Encima" && p.Arguments[0] == block);
-        
-        // Obtenemos el soporte sobre el que está el bloque.
-        string support = predicate.Arguments[1];
-
-        // Si el soporte es una posición fija (por ejemplo, T1, T2 o T3),
-        // entonces esa es la base.
-        if (support == "T1" || support == "T2" || support == "T3")
-        {
-            return support;
-        }
-        else
-        {
-            // Si el soporte es otro bloque, se hace una llamada recursiva para
-            // determinar la base de ese bloque.
-            return FindSupport(support, state);
-        }
-    }
-
+    /// <summary>
+    /// Converts a state (a set of predicates) into a sorted string representation.
+    /// </summary>
+    /// <param name="state">The state as a set of predicates.</param>
+    /// <returns>A string representation of the state.</returns>
     private string StateToString(HashSet<Predicate> state)
     {
         var sorted = state.Select(p => p.ToString()).OrderBy(s => s);
         return string.Join(";", sorted);
     }
-        
+
+    /// <summary>
+    /// Generates a plan that transforms the initial state into the goal state using A* search.
+    /// </summary>
+    /// <param name="initialState">The initial state as a set of predicates.</param>
+    /// <param name="goalState">The goal state as a set of predicates.</param>
+    /// <returns>
+    /// A list of <see cref="StripsAction"/> representing the plan if one is found; otherwise, null.
+    /// </returns>
     public List<StripsAction> GetPlan(HashSet<Predicate> initialState, HashSet<Predicate> goalState)
     {
-        PriorityQueue<Tuple<HashSet<Predicate>, List<StripsAction>>, int> Pqueue = new PriorityQueue<Tuple<HashSet<Predicate>, List<StripsAction>>, int>();
+        PriorityQueue<Tuple<HashSet<Predicate>, List<StripsAction>>, int> Pqueue =
+            new PriorityQueue<Tuple<HashSet<Predicate>, List<StripsAction>>, int>();
         HashSet<string> visited = new HashSet<string>();
 
         Pqueue.Enqueue(new Tuple<HashSet<Predicate>, List<StripsAction>>(initialState, new List<StripsAction>()), 0);
@@ -120,5 +92,4 @@ public class StripsPlanner
         }
         return null;
     }
-
 }

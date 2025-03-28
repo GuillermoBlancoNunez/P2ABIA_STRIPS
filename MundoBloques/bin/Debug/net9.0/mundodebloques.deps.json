@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "MundoBloques/1.0.0": {
+      "mundodebloques/1.0.0": {
         "runtime": {
-          "MundoBloques.dll": {}
+          "mundodebloques.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "MundoBloques/1.0.0": {
+    "mundodebloques/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,11 +1,11 @@
 {
   "version": 3,
   "targets": {
-    "net9.0-windows7.0": {}
+    "net9.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net9.0-windows7.0": []
+    "net9.0": []
   },
   "packageFolders": {
     "C:\\Users\\fizga\\.nuget\\packages\\": {},
@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
-      "projectName": "MundoBloques",
-      "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\MundoBloques.csproj",
+      "projectUniqueName": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\mundodebloques.csproj",
+      "projectName": "mundodebloques",
+      "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\mundodebloques.csproj",
       "packagesPath": "C:\\Users\\fizga\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P2ABIA_STRIPS\\MundoBloques\\obj\\",
       "projectStyle": "PackageReference",
@@ -28,14 +28,14 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
-        "net9.0-windows"
+        "net9.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0-windows7.0": {
-          "targetAlias": "net9.0-windows",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "projectReferences": {}
         }
       },
@@ -52,8 +52,8 @@
       "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
-      "net9.0-windows7.0": {
-        "targetAlias": "net9.0-windows",
+      "net9.0": {
+        "targetAlias": "net9.0",
         "imports": [
           "net461",
           "net462",
@@ -68,9 +68,6 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
-          },
-          "Microsoft.WindowsDesktop.App.WindowsForms": {
-            "privateAssets": "none"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"

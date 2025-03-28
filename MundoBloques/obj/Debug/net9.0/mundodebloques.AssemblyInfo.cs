@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("MundoBloques")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("mundodebloques")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86a2cdb063f5bfbaa263f27574ae92cf43cad89a")]
-[assembly: System.Reflection.AssemblyProductAttribute("MundoBloques")]
-[assembly: System.Reflection.AssemblyTitleAttribute("MundoBloques")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f2c70b3f282751edab5d5346f7f3b640fcde959")]
+[assembly: System.Reflection.AssemblyProductAttribute("mundodebloques")]
+[assembly: System.Reflection.AssemblyTitleAttribute("mundodebloques")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

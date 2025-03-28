@@ -1,116 +1,123 @@
-﻿ class Program
+﻿/// <summary>
+/// Main entry point for the Blocks World STRIPS application.
+/// This application initializes the scenario, prints the initial state and visual representation,
+/// displays the computed plan, and then executes the plan step-by-step.
+/// </summary>
+class Program
+{
+    /// <summary>
+    /// Main method that starts the application.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        HashSet<Predicate> initialState = Scenario.GetInitialState();
+        HashSet<Predicate> goalState = Scenario.GetGoalState();
+
+        Agent agent = new Agent(initialState, goalState);
+
+        PrintState(agent.CurrentState, "inicial");
+        PrintVisualState(agent.CurrentState);
+
+        if (agent.Plan != null)
         {
-            // Inicialización del estado inicial y del objetivo.
-            HashSet<Predicate> initialState = Scenario.GetInitialState();
-            HashSet<Predicate> goalState = Scenario.GetGoalState();
-
-            // Se crea el agente que calcula el plan basado en el estado inicial y objetivo.
-            Agent agent = new Agent(initialState, goalState);
-
-            // Mostrar el estado inicial en la terminal.
-            Console.WriteLine("Estado Inicial:");
-            PrintState(agent.CurrentState);
-            PrintVisualState(agent.CurrentState);
-
-            // Mostrar el plan completo, si se encontró.
-            if (agent.Plan != null)
-            {
-                Console.WriteLine("\nPlan de Acciones:");
-                int index = 1;
-                foreach (var action in agent.Plan)
-                {
-                    Console.WriteLine($"{index++}: {action}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("No se encontró un plan.");
-                return;
-            }
-
-            // Ejecución paso a paso del plan.
-            Console.WriteLine("\nPresiona Enter para ejecutar cada acción...");
+            Console.WriteLine("\nPlan de Acciones:");
+            int index = 1;
             foreach (var action in agent.Plan)
             {
-                Console.ReadLine();
-                Console.WriteLine($"\nEjecutando acción: {action}");
-                agent.CurrentState = action.Apply(agent.CurrentState);
-                PrintState(agent.CurrentState);
-                PrintVisualState(agent.CurrentState);
+                Console.WriteLine($"{index++}: {action}");
             }
+        }
+        else
+        {
+            Console.WriteLine("No se encontró un plan.");
+            return;
+        }
 
-            Console.WriteLine("\nPlan completado. Presiona Enter para salir.");
+        Console.WriteLine("\nPresiona Enter para ejecutar cada acción...");
+        foreach (var action in agent.Plan)
+        {
             Console.ReadLine();
+            Console.WriteLine($"\nEjecutando acción: {action}");
+            agent.CurrentState = action.Apply(agent.CurrentState);
+            PrintState(agent.CurrentState, "actual");
+            PrintVisualState(agent.CurrentState);
         }
 
-        // Función auxiliar para imprimir el estado (lista de predicados) en la terminal.
-        static void PrintState(HashSet<Predicate> state)
+        Console.WriteLine("\nPlan completado. Presiona Enter para salir.");
+        Console.ReadLine();
+    }
+
+    /// <summary>
+    /// Prints the state's predicates to the console.
+    /// </summary>
+    /// <param name="state">The state as a set of predicates.</param>
+    /// <param name="label">A label indicating the type of state (e.g., "inicial", "actual").</param>
+    static void PrintState(HashSet<Predicate> state, string label)
+    {
+        Console.WriteLine(new string('-', 30));
+        Console.WriteLine($"Estado {label}:");
+        Console.WriteLine(new string('-', 30));
+        foreach (var predicate in state)
         {
-            Console.WriteLine("Estado actual:");
-            foreach (var predicate in state)
-            {
-                Console.WriteLine(predicate);
-            }
-            Console.WriteLine(new string('-', 30));
+            Console.WriteLine(predicate);
         }
+        Console.WriteLine(new string('-', 30));
+    }
 
-        // Función para mostrar una representación visual de las pilas en las posiciones de la mesa.
-        static void PrintVisualState(HashSet<Predicate> state)
+    /// <summary>
+    /// Displays a visual representation of the towers by identifying bases (predicates with support "Table")
+    /// and then following the "Encima" chain upward.
+    /// </summary>
+    /// <param name="state">The state as a set of predicates.</param>
+    static void PrintVisualState(HashSet<Predicate> state)
+    {
+        var basePredicates = state.Where(p => p.Name == "Encima" && p.Arguments[1] == "Table").ToList();
+        List<List<string>> towers = new List<List<string>>();
+
+        foreach (var bp in basePredicates)
         {
-            // Definimos las posiciones de la mesa.
-            string[] tablePositions = { "T1", "T2", "T3" };
-            // Diccionario para almacenar las pilas de cada posición.
-            Dictionary<string, List<string>> stacks = new Dictionary<string, List<string>>();
-            foreach (string tp in tablePositions)
-            {
-                stacks[tp] = new List<string>();
-            }
+            List<string> tower = new List<string>();
+            string currentBlock = bp.Arguments[0];
+            tower.Add(currentBlock);
 
-            // Para cada posición, buscamos el bloque que está directamente sobre la mesa
-            // y seguimos la cadena "Encima" para obtener la pila.
-            foreach (string tp in tablePositions)
+            bool found = true;
+            while (found)
             {
-                var baseBlock = state.FirstOrDefault(p => p.Name == "Encima" && p.Arguments[1] == tp)?.Arguments[0];
-                if (baseBlock != null)
+                var nextPredicate = state.FirstOrDefault(p => p.Name == "Encima" && p.Arguments[1] == currentBlock);
+                if (nextPredicate != null)
                 {
-                    stacks[tp].Add(baseBlock);
-                    string current = baseBlock;
-                    bool found = true;
-                    while (found)
-                    {
-                        found = false;
-                        var next = state.FirstOrDefault(p => p.Name == "Encima" && p.Arguments[1] == current)?.Arguments[0];
-                        if (next != null)
-                        {
-                            stacks[tp].Add(next);
-                            current = next;
-                            found = true;
-                        }
-                    }
-                }
-            }
-
-            // Imprime la representación visual:
-            Console.WriteLine("Representación visual del estado:");
-            foreach (string tp in tablePositions)
-            {
-                Console.Write(tp + ": ");
-                if (stacks[tp].Count == 0)
-                {
-                    Console.WriteLine("[ ]");
+                    string nextBlock = nextPredicate.Arguments[0];
+                    tower.Add(nextBlock);
+                    currentBlock = nextBlock;
                 }
                 else
                 {
-                    // Se muestra la pila de abajo hacia arriba.
-                    foreach (var block in stacks[tp])
-                    {
-                        Console.Write($"[{block}] ");
-                    }
-                    Console.WriteLine();
+                    found = false;
                 }
             }
-            Console.WriteLine(new string('-', 30));
+            towers.Add(tower);
         }
+
+        Console.WriteLine("Representación visual del estado:");
+        Console.WriteLine(new string('-', 30));
+        if (towers.Count == 0)
+        {
+            Console.WriteLine("[No hay torres]");
+        }
+        else
+        {
+            int towerIndex = 1;
+            foreach (var tower in towers)
+            {
+                Console.Write($"Torre {towerIndex++}: ");
+                foreach (var block in tower)
+                {
+                    Console.Write($"[{block}] ");
+                }
+                Console.WriteLine();
+            }
+        }
+        Console.WriteLine(new string('-', 30));
     }
+}

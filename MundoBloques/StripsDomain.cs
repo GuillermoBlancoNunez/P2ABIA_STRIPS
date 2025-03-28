@@ -1,78 +1,53 @@
-
+/// <summary>
+/// Represents the domain for the blocks world in STRIPS.
+/// This class generates all possible move actions.
+/// </summary>
 public static class StripsDomain
 {
-    
+    /// <summary>
+    /// Generates all possible actions of the form Mover(b, x, y), which represents moving block <c>b</c> from support <c>x</c> to support <c>y</c>.
+    /// x and y are taken from the union of the set of blocks and the table.
+    /// </summary>
+    /// <returns>A list of <see cref="StripsAction"/> representing possible moves.</returns>
     public static List<StripsAction> GetAllActions()
     {
         List<StripsAction> actions = new List<StripsAction>();
-        // Se usan los bloques definidos en el escenario
         string[] blocks = { "A", "B", "C", "D", "E", "F" };
-        // Las tres posiciones fijas de la mesa
-        string[] tablePositions = { "T1", "T2", "T3" };
+        string[] table = { "Table" };
 
-        // 1. Generar acciones Mover(b, x, y) para mover b desde x a otro bloque y.
-        //    x se toma de (blocks ∪ tablePositions) y y se toma de blocks.
         foreach (string b in blocks)
         {
-            foreach (string x in blocks.Concat(tablePositions))
+            foreach (string x in blocks.Concat(table))
             {
-                foreach (string y in blocks)
+                foreach (string y in blocks.Concat(table))
                 {
                     if (b != x && b != y && x != y)
                     {
                         string actionName = $"Mover({b},{x},{y})";
-                        var preconds = new List<Predicate>()
+                        
+                        var preconds = new List<Predicate>();
+                        preconds.Add(new Predicate("Encima", b, x));
+                        preconds.Add(new Predicate("Libre", b));
+                        if (y != "Table")
                         {
-                            new Predicate("Encima", b, x),
-                            new Predicate("Libre", b),
-                            new Predicate("Libre", y)
-                        };
-                        var addEffects = new List<Predicate>()
-                        {
-                            new Predicate("Encima", b, y),
-                            new Predicate("Libre", x)
-                        };
-                        var delEffects = new List<Predicate>()
-                        {
-                            new Predicate("Encima", b, x),
-                            new Predicate("Libre", y)
-                        };
-                        actions.Add(new StripsAction(actionName, preconds, addEffects, delEffects));
-                    }
-                }
-            }
-        }
-
-        // 2. Generar acciones Mover(b, x, t) para mover b desde x a una posición de la mesa.
-        foreach (string b in blocks)
-        {
-            foreach (string x in blocks.Concat(tablePositions))
-            {
-                if (b != x)
-                {
-                    foreach (string t in tablePositions)
-                    {
-                        if (x != t) // evitar mover b a la misma posición que ya ocupa
-                        {
-                            string actionName = $"Mover({b},{x},{t})";
-                            var preconds = new List<Predicate>()
-                            {
-                                new Predicate("Encima", b, x),
-                                new Predicate("Libre", b),
-                                new Predicate("Libre", t)
-                            };
-                            var addEffects = new List<Predicate>()
-                            {
-                                new Predicate("Encima", b, t),
-                                new Predicate("Libre", x)
-                            };
-                            var delEffects = new List<Predicate>()
-                            {
-                                new Predicate("Encima", b, x),
-                                new Predicate("Libre", t)
-                            };
-                            actions.Add(new StripsAction(actionName, preconds, addEffects, delEffects));
+                            preconds.Add(new Predicate("Libre", y));
                         }
+                        
+                        var addEffects = new List<Predicate>();
+                        addEffects.Add(new Predicate("Encima", b, y));
+                        if (x != "Table")
+                        {
+                            addEffects.Add(new Predicate("Libre", x));
+                        }
+                        
+                        var delEffects = new List<Predicate>();
+                        delEffects.Add(new Predicate("Encima", b, x));
+                        if (y != "Table")
+                        {
+                            delEffects.Add(new Predicate("Libre", y));
+                        }
+                        
+                        actions.Add(new StripsAction(actionName, preconds, addEffects, delEffects));
                     }
                 }
             }
