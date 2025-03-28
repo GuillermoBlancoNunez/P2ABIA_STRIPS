@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("8puzzle")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f2c70b3f282751edab5d5346f7f3b640fcde959")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a415c995162d9103a83a011c64dcafce3b708f5")]
+>>>>>>> 913667156b1220750f55401505690699ff5a350e
 [assembly: System.Reflection.AssemblyProductAttribute("8puzzle")]
 [assembly: System.Reflection.AssemblyTitleAttribute("8puzzle")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
